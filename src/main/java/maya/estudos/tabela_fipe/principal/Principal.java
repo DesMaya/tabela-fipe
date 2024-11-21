@@ -1,6 +1,7 @@
 package maya.estudos.tabela_fipe.principal;
 
 import maya.estudos.tabela_fipe.model.Dados;
+import maya.estudos.tabela_fipe.model.Modelos;
 import maya.estudos.tabela_fipe.service.ConsumoApi;
 import maya.estudos.tabela_fipe.service.ConverteDados;
 
@@ -45,6 +46,19 @@ public class Principal {
         marcas.stream()
                 .sorted(Comparator.comparing(Dados::codigo))
                 .forEach(System.out::println);
+
+        System.out.println("Digite o código da marca que deseja consultar: ");
+        var condigoMarca = sc.nextLine();
+
+        endereco = endereco + "/" + condigoMarca + "/modelos";
+        var modelos = consumo.obterDados(endereco);
+        var modeloLista = conversor.obterDados(modelos, Modelos.class);
+
+        System.out.println("\nLista de modelos: ");
+        modeloLista.modelos().stream()
+                .sorted(Comparator.comparing(Dados::codigo))
+                .forEach(System.out::println);
+
     }
 
 }
