@@ -6,7 +6,10 @@ import maya.estudos.tabela_fipe.service.ConsumoApi;
 import maya.estudos.tabela_fipe.service.ConverteDados;
 
 import java.util.Comparator;
+import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Principal {
 
@@ -59,6 +62,16 @@ public class Principal {
                 .sorted(Comparator.comparing(Dados::codigo))
                 .forEach(System.out::println);
 
+
+        System.out.println("\nDigite um trecho do nome do carro a ser buscado:");
+        var nomeVeiculo = sc.nextLine();
+
+        List<Dados> modelosFiltrados = modeloLista.modelos().stream()
+                .filter(m -> m.nome().toLowerCase().contains(nomeVeiculo.toLowerCase()))
+                .toList();
+
+        System.out.println("\nModelos filtrados: ");
+        modelosFiltrados.forEach(System.out::println);
     }
 
 }
